@@ -1,0 +1,42 @@
+<template>
+    <el-form :model="form">
+        <el-form-item label="名称">
+            <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="代号">
+            <el-input v-model="form.code"></el-input>
+        </el-form-item>
+        <el-form-item style="align-items: center;width: 100%;">
+            <el-button type="primary" @click="submitForm" style="flex-grow: 1;">确定</el-button>
+        </el-form-item>
+    </el-form>
+</template>
+<script lang="ts" setup>
+import { reactive,ref } from 'vue';
+import axios from 'axios';
+import useUserData from '../store/User.js'
+const { publicUrl,baseUrl} =useUserData().urls
+console.log(publicUrl);
+
+const form = reactive({
+    name: '',
+    code: ''
+})
+const submitForm = () => {
+    console.log(form.name);
+    const name = form.name
+    const code = form.code
+    axios.post("baseUrl+publicModule/equipmentName/", {
+        order: 1,
+        name: Number(name),
+        code: code,
+        is_ok: 1
+    }).then(res => {
+
+
+    })
+
+}
+
+
+</script>
