@@ -56,7 +56,7 @@ const ruleFormRef = ref<FormInstance>()
 const route = useRoute()
 const router = useRouter()
 const store = useLogon()
-let { loginUrl } = store
+let { agencyUrl } = store
 
 interface ruleForm {
     account: string,
@@ -98,7 +98,7 @@ const login = async (formEl: FormInstance | undefined) => {
 
                 }
             };
-            axios.get('http://192.168.1.27:3002/login', {
+            axios.get(agencyUrl, {
                 params: config
             })
                 .then(res => {

@@ -98,8 +98,9 @@ const useLogon = defineStore("logon", () => {
         },
     ])
     // const loginUrl = login
+    const agencyUrl = 'http://192.168.218.133:3002/login'
     return {
-        isShowAdd, formList, 
+        isShowAdd, formList,agencyUrl
     }
 })
 
