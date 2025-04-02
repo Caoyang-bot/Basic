@@ -9,11 +9,79 @@ const renderNotFoundPromise = () => new Promise((resolve) => {
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/login",
+    redirect: "/print",
+  },
+
+  {
+    path: '/print',
+    component: () => import("./Login/BatchCardPrint.vue"),
+  },
+
+  {
+    path: '/AuthenticationPassword',
+    component: () => import("./Login/AuthenticationPassword.vue")
   },
   {
     path: '/login',
     component: () => import("./Login/login.vue")
+  },
+
+  {
+    path: '/onlyId',
+    component: () => import("./Login/onlyId.vue")
+  },
+  {
+    path: '/qrCode',
+    component: () => import("./Login/qrCode.vue")
+  },
+  {
+    path: '/fullcalendar',
+    component: () => import("./Login/fullcalendar.vue")
+  },
+  {
+    path: '/Largevisual',
+    component: () => import("./Login/Largevisual.vue")
+
+  },
+  {
+    path: '/BarCode',
+    component: () => import("./Login/BarCode.vue")
+
+  },
+
+  {
+    path: '/qsCode',
+
+    component: () => import("./Login/qsCode.vue")
+  },
+  {
+    path: '/AMap',
+
+    component: () => import("./Login/AMap.vue")
+  },
+  {
+    path: '/Export',
+    component: () => import("./Login/Main.vue")
+  },
+  {
+    path: '/Ip',
+    component: () => import("./Login/Ip.vue")
+  },
+  {
+    path: '/number-game',
+    component: () => import("./Game/NumberGame.vue")
+  },
+  {
+    path: '/snake-game',
+    component: () => import("./Game/SnakeGame.vue")
+  },
+  {
+    path: '/elevator-game',
+    component: () => import("./Game/ElevatorGame.vue")
+  },
+  {
+    path: '/testTable',
+    component: () => import("./Login/testTable.vue")
   },
   {
     path: '/:pathMatch(.*)',

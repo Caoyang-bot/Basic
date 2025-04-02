@@ -1,2 +1,2 @@
 export const HTTPS = false
-export const IP = '192.168.1.116'
+export const IP = '10.20.72.34'

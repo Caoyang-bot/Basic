@@ -4,6 +4,8 @@ import htmlPlugin from 'vite-plugin-index-html';
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { VantResolver } from '@vant/auto-import-resolver';
+
 import * as url from './url'
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,16 +14,16 @@ export default defineConfig({
     preserveEntrySignatures: 'exports-only',
   }),
   AutoImport({
-    resolvers: [ElementPlusResolver()],
+    resolvers: [ElementPlusResolver(), VantResolver()],
   }),
   Components({
-    resolvers: [ElementPlusResolver()],
+    resolvers: [ElementPlusResolver(), VantResolver()],
   }),],
   base: './',
   server: {
     https: url.HTTPS,
     host: url.IP,
-    port: 9099,
+    port: 9300,
     proxy: {
       '/api': {
         target: 'http://10.23.181.13:8098', // 代理目标地址

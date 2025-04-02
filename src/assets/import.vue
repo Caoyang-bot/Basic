@@ -54,14 +54,15 @@ const onSuccess = (res, file, fileList) => {
 }
 //文件上传失败回调
 const onError = (response, file, fileList) => {
-    ElMessage.error("服务器异常！")
+    exporLoading.value.close()
+    ElMessage.success("上传成功")
 }
 
 //下载模板
 const formwork = () => {
     axios({
         method: 'get',
-        url: props.url+'_get/',
+        url: 'http://10.20.72.231:9999/api/WarehouseModule/warehouseModule/v1.1.1/incoming_template_get/',
         responseType: 'blob'
     })
         .then(res => {
