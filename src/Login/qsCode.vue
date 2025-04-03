@@ -1,4 +1,4 @@
-//二维码
+<!-- 二维码扫码 -->
 <template>
     <div class="container">
       <div id="reader"></div>

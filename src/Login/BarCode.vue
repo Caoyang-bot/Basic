@@ -1,3 +1,4 @@
+<!-- 手机扫码 -->
 <script setup >
 import { ref, reactive, toRefs } from 'vue'
 import { BrowserMultiFormatReader } from '@zxing/library';

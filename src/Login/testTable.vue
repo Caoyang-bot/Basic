@@ -1,3 +1,4 @@
+<!-- 表格封装 -->
 <template>
   <div class="advanced-table-demo">
     <AdvancedTable :columns="columns" :data="tableData" :total="total" :page-size="pageSize" :current-page="currentPage"

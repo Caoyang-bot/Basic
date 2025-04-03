@@ -1,3 +1,4 @@
+<!-- 密码格式 -->
 <template>
     <el-form :model="form" ref="passwordForm" :rules="rules">
         <el-form-item label="输入密码">

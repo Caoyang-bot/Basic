@@ -1,3 +1,4 @@
+<!-- 分页打印 -->
 <template>
   <div class="print-content">
     <div class="print-page">1</div>

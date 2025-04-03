@@ -1,3 +1,4 @@
+<!-- 示例图表 -->
 <template>
     <div ref="chartContainer" style="height: 600px;width: 400px;"></div>
     <ImportBtn :url="'http://10.20.72.231:9999' + 'incoming_template'" :parameter="{ state: 1 }" />

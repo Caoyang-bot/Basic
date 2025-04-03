@@ -1,26 +1,28 @@
+<!-- 日历 -->
 <template>
-    <div>
-        <div id="calendar" ref="calendarRef"></div>
-        <el-dialog v-model="dialogTableVisible" title="添加任务" width="500" :before-close="handleClose">
-            <h3 v-if="end == ''">
-                起始日期：{{ dayjs(start).format("YYYY-MM-DD") }}
-            </h3>
-            <h3 v-else>
-                起始日期：{{ dayjs(start).format("YYYY-MM-DD") }}--{{
-                dayjs(end).format("YYYY-MM-DD")
-                }}
-            </h3>
-            <el-input v-model="input" style="width: 100%" placeholder="Please input" />
-            <hr />
-            <el-color-picker v-model="color" />
-            <hr />
-    
-            <el-button type="primary" @click="save">{{
-                isEdit.value ? "修改" : "添加"
-                }}</el-button>
-        </el-dialog>
-    </div>
+  <div class="calendar-container">
+    <div id="calendar" ref="calendarRef"></div>
+  
+    <el-dialog v-model="dialogVisible" title="编辑事件" width="500px">
+      <el-form>
+        <el-form-item label="事件标题">
+          <el-input v-model="eventTitle" placeholder="请输入事件标题" />
+        </el-form-item>
+        <el-form-item label="日期">
+          <el-date-picker v-model="eventDate" type="date" placeholder="选择日期" value-format="YYYY-MM-DD" />
+        </el-form-item>
+        <el-form-item label="颜色">
+          <el-color-picker v-model="eventColor" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveEvent">保存</el-button>
+      </template>
+    </el-dialog>
+  </div>
 </template>
+
 <script setup>
 import { Calendar } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -32,130 +34,139 @@ import dayjs from "dayjs";
 
 const data = ref([
   {
-    id: Math.random(32).toString(16).slice(6),
-    title: "All Day Event",
-    start: "2024-07-01",
-  },
-  {
-    id: Math.random(32).toString(16).slice(6),
-    title: "Long Event",
-    start: "2024-07-07",
-    end: "2024-07-10",
-  },
-]);
-const calendarRef = ref();
-let canendar = null;
-const dialogTableVisible = ref(false);
-const input = ref("");
-const start = ref("");
-const end = ref("");
-const flag = ref("date"); //date是单个日期，range是范围
-const color = ref("");
-const isEdit = ref(false);
-const editId = ref(null);
-
-function handleClose() {
-  dialogTableVisible.value = false;
-  start.value = "";
-  end.value = "";
-  input.value = "";
-  color.value = "";
-  isEdit.value = false;
-  editId.value = null;
-}
-
-function save() {
-  let newEvent = null;
-  if (isEdit.value) {
-    //根据id获取对应数据源修改
-    let event = canendar.getEventById(editId.value);
-    data.value.forEach((item) => {
-      if (item.id == editId.value) {
-        event.setProp("title", input.value);
-        event.setProp("backgroundColor", color.value);
-        event.remove(); //移除原先的事件源
-        canendar.addEvent(event); //再次添加
-      }
-    });
-  } else {
-    newEvent = {
-      title: input.value,
-      start: dayjs(start.value).format("YYYY-MM-DD"), //根据日期格式化，显示不同的任务样式
-      id: Math.random(32).toString(16).slice(6),
-      color: color.value,
-    };
-
-    if (flag == "date") {
-      data.value.push(newEvent);
-    } else {
-      newEvent.end = dayjs(end.value).format("YYYY-MM-DD");
-      data.value.push(newEvent);
-    }
-    canendar && canendar.addEvent(newEvent); //添加新的卡片数据并触发更新
+    id: Math.random().toString(36).substring(2, 9),
+    title: "示例事件",
+    start: dayjs().format("YYYY-MM-DD"),
+    color: "#3a86ff"
   }
+]);
 
-  dialogTableVisible.value = false;
-  start.value = "";
-  end.value = "";
-  input.value = "";
-  newEvent = null;
-  color.value = "";
-  editId.value = null;
-  isEdit.value = false;
+const calendarRef = ref();
+let calendar = null;
+const dialogVisible = ref(false);
+const eventTitle = ref("");
+const eventDate = ref("");
+const eventColor = ref("#3a86ff");
+const currentEventId = ref(null);
+
+function saveEvent() {
+  if (currentEventId.value) {
+    // 更新现有事件
+    const event = calendar.getEventById(currentEventId.value);
+    if (event) {
+      event.setProp("title", eventTitle.value);
+      event.setProp("start", eventDate.value);
+      event.setProp("backgroundColor", eventColor.value);
+    }
+  } else {
+    // 添加新事件
+    const newEvent = {
+      id: Math.random().toString(36).substring(2, 9),
+      title: eventTitle.value,
+      start: eventDate.value,
+      backgroundColor: eventColor.value
+    };
+    calendar.addEvent(newEvent);
+    data.value.push(newEvent);
+  }
+  dialogVisible.value = false;
+  resetForm();
 }
+
+function resetForm() {
+  eventTitle.value = "";
+  eventDate.value = "";
+  eventColor.value = "#3a86ff";
+  currentEventId.value = null;
+}
+
 onMounted(() => {
-  canendar = new Calendar(calendarRef.value, {
-    //interaction需要添加，否则在日历中无法对任务进行拖拽操作
-    plugins: [dayGridPlugin, interaction, multiMonthPlugin], //使用的插件
-    timeZone: "UTC",
-    initialView: "dayGridMonth", // 日历的排列方式
+  calendar = new Calendar(calendarRef.value, {
+    plugins: [dayGridPlugin, interaction, multiMonthPlugin],
+    initialView: "dayGridMonth",
     headerToolbar: {
       left: "prev,next today",
       center: "title",
-      right: "dayGridYear,dayGridWeek,dayGridDay",
-    },
-    editable: false, // 需要开启，否则无允许拖拽的效果
-    droppable: true,
-    events: data.value, //数据源，可以是一个地址
-    selectable: false, //允许多行选中日历，开启会触发select事件
-    locale: 'zh-ch', // 切换语言，当前为中文
-    dateClick: function (info) {
-      //单据某一个天的操作，无结束日期
-      console.log("dateClick", info);
-      flag.value = "date";
-      dialogTableVisible.value = true;
-      start.value = info.date;
-      end.value = "";
-    },
-    select: function (info) {
-      //选中多个日期，包含结束日期
-      console.log("select", info);
-      flag.value = "range";
-      dialogTableVisible.value = true;
-      start.value = info.start;
-      end.value = info.end;
-    },
-    eventClick: function (info) {
-      //单机事件卡片触发
-      console.log("eventClick", info);
-      dialogTableVisible.value = true;
-      isEdit.value = true;
-      editId.value = info.event.id;
-      if (info.event.end === null) {
-        flag.value = "date";
-        start.value = info.event.start;
-        end.value = "";
-      } else {
-        flag.value = "range";
-        start.value = info.event.start;
-        end.value = info.event.end;
-      }
-      color.value = info.event.backgroundColor;
-      input.value = info.event.title;
+      right: "dayGridMonth,dayGridWeek,dayGridDay"
     },
     locale: esLocale,
+    firstDay: 1,
+    weekends: true,
+    editable: true,
+    selectable: true,
+    dayMaxEvents: true,
+    events: data.value,
+    eventDisplay: "block",
+    eventColor: "#3788d8",
+    eventClick: (info) => {
+      currentEventId.value = info.event.id;
+      eventTitle.value = info.event.title;
+      eventDate.value = dayjs(info.event.start).format("YYYY-MM-DD");
+      eventColor.value = info.event.backgroundColor || "#3a86ff";
+      dialogVisible.value = true;
+    },
+    dateClick: (info) => {
+      currentEventId.value = null;
+      eventTitle.value = "";
+      eventDate.value = info.dateStr;
+      eventColor.value = "#3a86ff";
+      dialogVisible.value = true;
+    }
   });
-  canendar.render();
+  
+  calendar.render();
 });
-
 </script>
+
+<style scoped>
+.calendar-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+#calendar {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* FullCalendar 自定义样式 */
+:deep(.fc) {
+  font-size: 14px;
+}
+
+:deep(.fc-toolbar-title) {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+:deep(.fc-button) {
+  background-color: #f0f0f0;
+  border: none;
+  color: #333;
+  font-weight: normal;
+}
+
+:deep(.fc-button-active) {
+  background-color: #3a86ff;
+  color: white;
+}
+
+:deep(.fc-daygrid-day-number) {
+  color: #333;
+  font-weight: bold;
+}
+
+:deep(.fc-daygrid-day.fc-day-today) {
+  background-color: rgba(58, 134, 255, 0.1);
+}
+
+:deep(.fc-event) {
+  border-radius: 4px;
+  border: none;
+  padding: 2px 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+</style>

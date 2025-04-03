@@ -1,3 +1,4 @@
+<!-- 二维码生成 -->
 <template>
     <el-button text @click="dialogVisible = true">生成二维码</el-button>
     

@@ -1,3 +1,4 @@
+<!-- 富文本 -->
 <template>
     <div style="border: 1px solid #ccc; width: 50%; margin: 100px auto">
         <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig" mode="default" />

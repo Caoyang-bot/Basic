@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/qrCode',
     component: () => import("./Login/qrCode.vue")
-  },
+  }, 
   {
     path: '/fullcalendar',
     component: () => import("./Login/fullcalendar.vue")
@@ -80,8 +80,16 @@ const routes: RouteRecordRaw[] = [
     component: () => import("./Game/ElevatorGame.vue")
   },
   {
+    path: '/gold-miner',
+    component: () => import("./Game/GoldMinerGame.vue")
+  },
+  {
     path: '/testTable',
     component: () => import("./Login/testTable.vue")
+  },
+  {
+    path: '/LifecycleDemo',
+    component: () => import("./examples/LifecycleDemo.vue")
   },
   {
     path: '/:pathMatch(.*)',

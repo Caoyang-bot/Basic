@@ -1,3 +1,4 @@
+<!-- 可视化大屏 -->
 <template>
   <div class="screen-bg" v-loading="loading">
     <iframe frameborder="0" src="src/assets/index.html" style="width: 100%; height: 100%;z-index: -10"></iframe>
