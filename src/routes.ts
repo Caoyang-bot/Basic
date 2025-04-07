@@ -84,6 +84,10 @@ const routes: RouteRecordRaw[] = [
     component: () => import("./Game/GoldMinerGame.vue")
   },
   {
+    path: '/threejs-example',
+    component: () => import("./views/ThreeJSExample.vue")
+  },
+  {
     path: '/testTable',
     component: () => import("./Login/testTable.vue")
   },
@@ -91,6 +95,7 @@ const routes: RouteRecordRaw[] = [
     path: '/LifecycleDemo',
     component: () => import("./examples/LifecycleDemo.vue")
   },
+  
   {
     path: '/:pathMatch(.*)',
     redirect: "/orderDetail/plan",
