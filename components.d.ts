@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AdvancedTable: typeof import('./src/components/AdvancedTable.vue')['default']
+    Calculator: typeof import('./src/components/Calculator.vue')['default']
     ElAmap: typeof import('element-plus/es')['ElAmap']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']

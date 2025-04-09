@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/qrCode',
     component: () => import("./Login/qrCode.vue")
-  }, 
+  },
   {
     path: '/fullcalendar',
     component: () => import("./Login/fullcalendar.vue")
@@ -95,7 +95,14 @@ const routes: RouteRecordRaw[] = [
     path: '/LifecycleDemo',
     component: () => import("./examples/LifecycleDemo.vue")
   },
-  
+  {
+    path: '/VxeTableExample',
+    component: () => import("./examples/VxeTableExample.vue")
+  },
+  {
+    path: '/calculator',
+    component: () => import("./Login/Calculator.vue")
+  },
   {
     path: '/:pathMatch(.*)',
     redirect: "/orderDetail/plan",

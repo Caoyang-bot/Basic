@@ -14,6 +14,10 @@ import Vant from 'vant';
 import VueQrcode from 'vue-qrcode'
 import { createPinia } from 'pinia';
 import DataVVue3 from '@kjgl77/datav-vue3'
+import VxeUIAll from 'vxe-pc-ui'
+import 'vxe-pc-ui/lib/style.css'
+import VxeUITable from 'vxe-table'
+import 'vxe-table/lib/style.css'
 
 import VueAMap from 'vue-amap';
 let vue: Root<Element> | null = null;
@@ -32,6 +36,8 @@ const runApp = (container: Element | string) => {
   vue.use(DataVVue3);
   vue.use(Vant);
   vue.use(VueQrcode);
+  vue.use(VxeUIAll);
+  vue.use(VxeUITable);
   vue.mount(container);
   vue.use(ElementPlus, {
     locale: zhCn,

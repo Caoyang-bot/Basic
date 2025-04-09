@@ -19,7 +19,7 @@ export default defineConfig({
   Components({
     resolvers: [ElementPlusResolver(), VantResolver()],
   }),],
-  base: './',
+  base: '/',
   server: {
     https: url.HTTPS,
     host: url.IP,
