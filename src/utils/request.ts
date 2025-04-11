@@ -23,7 +23,7 @@ export class Request {
 
   constructor(config: AxiosRequestConfig) {
     // 使用axios.create创建axios实例
-    // this.instance = axios.create(Object.assign(this.baseConfig, config));
+    this.instance = axios.create(config);
 
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
@@ -132,7 +132,10 @@ export class Request {
 }
 
 // 默认导出Request实例
-export default new Request({})
+export default new Request({
+  baseURL: '/api',
+  timeout: 6000
+})
 
 // 默认导出有两个参数
 /**

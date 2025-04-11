@@ -104,6 +104,10 @@ const routes: RouteRecordRaw[] = [
     component: () => import("./Login/Calculator.vue")
   },
   {
+    path: '/signature',
+    component: () => import("./Login/SignaturePad.vue")
+  },
+  {
     path: '/:pathMatch(.*)',
     redirect: "/orderDetail/plan",
   }

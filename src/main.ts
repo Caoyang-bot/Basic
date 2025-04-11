@@ -38,13 +38,13 @@ const runApp = (container: Element | string) => {
   vue.use(VueQrcode);
   vue.use(VxeUIAll);
   vue.use(VxeUITable);
-  vue.mount(container);
   vue.use(ElementPlus, {
     locale: zhCn,
   });
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     vue.component(key, component)
   }
+  vue.mount(container);
 };
 
 if (!isInIcestark()) {
